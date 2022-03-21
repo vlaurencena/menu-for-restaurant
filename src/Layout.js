@@ -3,11 +3,17 @@ import Footer from "./Footer";
 import { context } from "./context/MenuContext";
 import { useContext } from "react";
 
-const Layout = () => {
+const Layout = (props) => {
 
     const { testMode } = useContext(context);
 
     testMode ? console.log("Test Mode ON") : console.log("Test Mode OFF");
+
+
+    const handleLogout = () => {
+        props.setToken("");
+        localStorage.clear();
+    }
 
     return (
         <>
@@ -20,7 +26,11 @@ const Layout = () => {
                         <li>
                             <Link to="/search-dishes">Search Dishes</Link>
                         </li>
+                        <li className="nav-bar__logout">
+                            <button onClick={handleLogout}>Logout</button>
+                        </li>
                     </ul>
+
                 </nav>
             </header>
             <Outlet />

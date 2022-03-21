@@ -11,21 +11,30 @@ import { CustomProvider } from "./context/MenuContext";
 
 function App() {
 
-  const [token, setToken] = useState();
+  const [token, setToken] = useState("");
+
+ 
 
   useEffect(() => {
-    setToken("12");
-  }, []);
+    token && localStorage.setItem("token", token);
+  }, [token]);
 
+  useEffect(() => {
+    const retrievedToken = localStorage.getItem("token");
+    retrievedToken && setToken(retrievedToken);
+  }, []);
+  
   if (!token) {
-    return <Login setToken={setToken} />
+    return <Login
+    setToken={setToken}
+    />
   }
 
   return (
     <BrowserRouter>
       <CustomProvider>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout setToken={setToken}/>}>
             <Route index element={<Menu />} />
             <Route path="/search-dishes" element={<Search />} />
           </Route>

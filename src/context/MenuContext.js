@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
 
 const context = createContext();
 
@@ -6,7 +8,7 @@ const { Provider } = context;
 
 const CustomProvider = ({ children }) => {
 
-    const testMode = false;
+    const testMode = true;
 
     const test__initialResponse = {
         "data": {
@@ -6081,14 +6083,35 @@ const CustomProvider = ({ children }) => {
 
     const [healthScoreOfMenu, setHealthScoreOfMenu] = useState([]);
 
+    const notifyError = (text) => toast.error(text, {
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
+    const notifySuccess = (text) => toast.success(text, {
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
     const addToMenu = (item) => {
         if (menu.length >= 4) {
-            alert("You've reached 4 dishes limit");
+            notifyError("You've reached 4 dishes limit");
         } else if (item.vegan && checkVeganLimit() === 2) {
-            alert("You've reached 2 vegan dishes limit");
+            notifyError("You've reached 2 vegan dishes limit");
         } else if (!item.vegan && checkNonVeganLimit() === 2) {
-            alert("You've reached 2 non vegan dishes limit");
+            notifyError("You've reached 2 non vegan dishes limit");
         } else {
+            notifySuccess("You've successfully added this dish to the menu");
             setMenu([...menu, item]);
         }
     }
@@ -6117,7 +6140,15 @@ const CustomProvider = ({ children }) => {
         temp_healthScoreOfMenu = temp_healthScoreOfMenu / menu.length;
         setPriceOfMenu(temp_priceOfMenu);
         setHealthScoreOfMenu(temp_healthScoreOfMenu);
-    }, [menu])
+        console.log(menu);
+        menu.length !== 0 && localStorage.setItem("menu", JSON.stringify(menu));
+    }, [menu]);
+
+    useEffect(function () {
+        const savedMenu = localStorage.getItem("menu");
+        savedMenu && setMenu([...JSON.parse(savedMenu)]);
+    }, []);
+
 
     const removeFromMenu = (item) => {
         let temp_menu = [...menu];

@@ -17,12 +17,38 @@ body {
 }
 
 /* FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap");
 
+/* LOGIN WRAPPER */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrapper__login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.login-wrapper__login-form p {
+  margin: 0;
+}
+
+.get-credentiales-hidden {
+  visibility: hidden;
+}
+
+.autocomplete-button {
+
+}
 /* LAYOUT */
 
 header {
-  background-color: aqua;
+  background-color: aquamarine;
   position: fixed;
   width: 100%;
   z-index: 1;
@@ -30,9 +56,8 @@ header {
 
 .nav-bar {
   max-width: 1200px;
-  background-color: aquamarine;
   margin: auto;
-  font-family: 'Merienda', cursive;
+  font-family: "Merienda", cursive;
 }
 
 .nav-bar > ul {
@@ -51,27 +76,57 @@ header {
 }
 
 .nav-bar ul li a:visited {
-color: #000000;
+  color: #000000;
+}
+
+.nav-bar__logout {
+  position: absolute;
+  right: 30px;
+}
+
+.nav-bar__logout > button {
+  font-family: "Merienda", cursive;
+  background-color: transparent;
+  border: 0;
+  text-transform: uppercase;
+  color: #000000;
+  font-size: 1rem;
+}
+
+.nav-bar__logout > button:hover {
+  cursor: pointer;
 }
 
 .search-container,
 .menu-container {
   max-width: 1200px;
-  background-color: blanchedalmond;
   margin: 0 auto auto auto;
   padding: 20px;
   text-align: center;
   justify-self: flex-start;
-  margin-top: 78px;
+  margin-top: 83px;
+  flex-grow: 1;
 }
 /* MENU */
 
 /* SEARCH */
 
+.search-container {
+  flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+}
+
 .search-container form {
   display: inline-block;
 }
 
+/* SHOW MORE */
+.search-container__show-more {
+  padding: 0 5px;
+  text-decoration: underline;
+  font-style: italic;
+}
 /* DISHES CONTAINER */
 
 .dishes-container {
@@ -119,7 +174,6 @@ color: #000000;
 /* FOOTER */
 
 .footer {
-  max-width: 1200px;
   background-color: aquamarine;
   min-height: 78px;
   display: flex;
